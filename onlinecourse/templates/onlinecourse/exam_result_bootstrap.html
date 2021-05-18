@@ -39,7 +39,7 @@
     {% if grade > 80 %}
     <div class="alert alert-success">
        <!--HINT Display passed info -->
-       <p>Congratiolations {{ user.first_name }}! You have passed the exam with score {{ grade }}/100</p>
+       <p>Congratulations {{ user.first_name }}! You have passed the exam with score {{ grade }}/100</p>
     </div>
     {% else %}
     <div class="alert alert-danger">
@@ -52,13 +52,23 @@
         <h5 class="">Exam results</h5>
         <!--HINT Display exam results-->
         {% for question in course.question_set.all %}
-        <div class="card">
+        <div class="card mt-1">
             <div class="card-body bg-light">
                 <h5 class="card-title">{{ question.text }}</h5>
-                <p class="card-text">{{ course.description}}</p>
+                {% for choice in question.choice_set.all %}
+                    {% if choice.is_correct and choice.id in selected_ids %}
+                        <p class="card-text text-success">{{ choice.content}}</p>
+                    {% elif choice.is_correct %}
+                        <p class="card-text text-warning">Not selected: {{ choice.content}}</p>
+                    {% elif choice.id in selected_ids %}
+                        <p class="card-text text-warning">Uncorrect: {{ choice.content}}</p>
+                    {% else %}
+                        <p class="card-text">{{ choice.content}}</p>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
-
+        {% endfor %}
     </div>
 </div>
 </body>
