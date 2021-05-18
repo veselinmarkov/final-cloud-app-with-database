@@ -144,7 +144,7 @@ def extract_answers(request):
 def show_exam_result(request, course_id, submission_id):
     course = Course.objects.get(pk=course_id)
     submission = Submission.objects.get(pk=submission_id)
-    print(submission.choices.all())
+    #print(submission.choices.all())
     choices_list = []
     if submission.choices.all is not None:
         for choice in submission.choices.all():

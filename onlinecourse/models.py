@@ -141,6 +141,6 @@ class Choice(models.Model):
 # One choice could belong to multiple submissions
 class Submission(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
-    choices = models.ManyToManyField(Choice, null=True)
+    choices = models.ManyToManyField(Choice)
     date = models.DateTimeField(auto_now=True)
 #    Other fields and methods you would like to design
